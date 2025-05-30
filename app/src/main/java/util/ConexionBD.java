@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-    private static final String URL = "jdbc:h2:./carreras"; // crea archivo mislibros.mv.db
+    private static final String URL = "jdbc:h2:./data/carreras"; // crea archivo mislibros.mv.db
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 

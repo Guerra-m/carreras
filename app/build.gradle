@@ -31,7 +31,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'Carreras.App'
+    mainClass = 'main.Principal'
 }
 
 tasks.named('test') {
