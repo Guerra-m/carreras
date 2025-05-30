@@ -17,7 +17,6 @@ public class Principal {
     public static void main(String[] args) {
         MenuCarrera menuCarrera = new MenuCarrera(scanner);
         MenuMateria menuMateria = new MenuMateria(scanner, carreraDAO);
-        System.out.println("Directorio de trabajo: " + System.getProperty("user.dir"));
 
         int opcion;
         do {
