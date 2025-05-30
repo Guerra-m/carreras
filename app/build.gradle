@@ -22,10 +22,10 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
-    dependencies {
+    
     implementation 'com.h2database:h2:2.3.232'  // o la última versión
     // Otras dependencias que uses, como JUnit, etc.
-}
+
 
 }
 
