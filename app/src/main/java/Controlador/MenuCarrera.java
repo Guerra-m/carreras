@@ -28,8 +28,9 @@ public class MenuCarrera {
             System.out.println("(5) Eliminar Carrera");
             System.out.println("(6) Volver al menu principal");
             System.out.print("Elija una opcion: ");
-            opcion = Integer.parseInt(scanner.nextLine());
-
+            try{
+                opcion = Integer.parseInt(scanner.nextLine());
+                logger.info("Usuario eligio opcion en MenuCarrera: " + opcion);
             switch (opcion) {
                 case 1:
                     crearCarrera();
@@ -50,7 +51,11 @@ public class MenuCarrera {
                     System.out.println("Volviendo...");
                     break;
                 default:
-                    logger.warning("Opción inválida.");
+                    logger.warning("Opcion invalida.");
+            }
+            }catch(NumberFormatException e){
+                logger.severe("Error al leer opción en MenuCarrera: " + e.getMessage());
+                opcion = -1;
             }
         } while (opcion != 6);
     }
@@ -69,13 +74,16 @@ public class MenuCarrera {
             carrera.setMaterias(new ArrayList<>());
 
             carreraDAO.insertar(carrera);
-            System.out.println("Carrera creada correctamente.");
+            logger.info("Se agrego una nueva carrera: " + nombre);
+            System.out.println("Carrera agregada.");
         } catch (Exception e) {
+            logger.severe("Error al crear carrera: " + e.getMessage());
             System.out.println("Error al crear carrera: " + e.getMessage());
         }
     }
 
     private void mostrarCarreras() {
+        logger.info("Mostrando lista de carreras.");
         try {
             List<Carrera> carreras = carreraDAO.obtenerTodos();
             if (carreras.isEmpty()) {
@@ -90,6 +98,7 @@ public class MenuCarrera {
     }
 
     private void buscarCarreraPorId() {
+        logger.info("Buscando carrera por ID.");
         try {
             System.out.print("Ingrese ID de la carrera: ");
             int id = Integer.parseInt(scanner.nextLine());
@@ -97,19 +106,23 @@ public class MenuCarrera {
             if (c != null) {
                 System.out.println("ID: " + c.getId() + ", Nombre: " + c.getNombre() + ", Duracion: " + c.getDuracion());
             } else {
+                logger.warning("Carrera no encontrada con ID: " + id);
                 System.out.println("Carrera no encontrada.");
             }
         } catch (Exception e) {
-            System.out.println("Error al buscar carrera: " + e.getMessage());
+            logger.severe("Error al buscar carrera: " + e.getMessage());
         }
     }
 
     private void actualizarCarrera() {
+        
         try {
             System.out.print("Ingrese ID de la carrera a actualizar: ");
             int id = Integer.parseInt(scanner.nextLine());
             Carrera c = carreraDAO.obtenerPorId(id);
+            logger.info("Actualizando carrera con ID: " + id);
             if (c == null) {
+                logger.warning("Carrera no encontrada para actualizar con ID: " + id);
                 System.out.println("Carrera no encontrada.");
                 return;
             }
@@ -122,8 +135,10 @@ public class MenuCarrera {
             c.setDuracion(duracion);
 
             carreraDAO.actualizar(c);
+            logger.info("Carrera actualizada correctamente: " + c.getNombre());
             System.out.println("Carrera actualizada correctamente.");
         } catch (Exception e) {
+            logger.severe("Error al actualizar carrera: " + e.getMessage());
             System.out.println("Error al actualizar carrera: " + e.getMessage());
         }
     }
@@ -133,8 +148,11 @@ public class MenuCarrera {
             System.out.print("Ingrese ID de la carrera a eliminar: ");
             int id = Integer.parseInt(scanner.nextLine());
             carreraDAO.eliminar(id);
+            logger.info("Eliminando carrera con ID: " + id);
+            logger.info("Carrera eliminada correctamente con ID: " + id);
             System.out.println("Carrera eliminada.");
         } catch (Exception e) {
+            logger.severe("Error al eliminar carrera: " + e.getMessage()); 
             System.out.println("Error al eliminar carrera: " + e.getMessage());
         }
     }

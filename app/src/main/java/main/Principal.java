@@ -7,14 +7,18 @@ import dao.CarreraDAOImpl;
 import dao.MateriaDAO;
 import dao.MateriaDAOImpl;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 public class Principal {
+    
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
     private static final Scanner scanner = new Scanner(System.in);
     private static final CarreraDAO carreraDAO = new CarreraDAOImpl();
     private static final MateriaDAO materiaDAO = new MateriaDAOImpl();
     
     public static void main(String[] args) {
+        ConfigLogger.configurar(); //Guardo en un archivo .log
+
         logger.info("La aplicación inicio.");
         MenuCarrera menuCarrera = new MenuCarrera(scanner);
         MenuMateria menuMateria = new MenuMateria(scanner, carreraDAO);
@@ -26,8 +30,10 @@ public class Principal {
             System.out.println("(2) Ingresar o modificar Materias");
             System.out.println("(3) Salir");
             System.out.print("Elija una opcion: ");
-            opcion = Integer.parseInt(scanner.nextLine());
 
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+                logger.info("Usuario selecciono opcion: " + opcion);
             switch (opcion) {
                 case 1:
                     menuCarrera.mostrarMenu();
@@ -41,6 +47,10 @@ public class Principal {
                 default:
                     System.out.println("Opción invalida");
                     break;
+            }} catch (NumberFormatException e) {
+                logger.log(Level.SEVERE, "Error al ingresar la opción. No es un número válido.", e);
+                opcion = -1; // Para que siga el bucle
+                System.out.println("Debe ingresar un número válido.");
             }
         } while (opcion != 3);
     }

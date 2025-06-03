@@ -9,7 +9,9 @@ import model.Materia;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
 public class MenuMateria {
+
     private static final Logger logger = Logger.getLogger(MenuMateria.class.getName());
     private final MateriaDAO materiaDAO = new MateriaDAOImpl();
     private final CarreraDAO carreraDAO;
@@ -31,7 +33,14 @@ public class MenuMateria {
             System.out.println("(5) Eliminar Materia");
             System.out.println("(6) Volver al menu principal");
             System.out.print("Elija una  opcion: ");
-            opcion = Integer.parseInt(scanner.nextLine());
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+                logger.info("El Usuario eligió opción en MenuMateria: " + opcion);
+            } catch (NumberFormatException e) {
+                logger.warning("Opción invalida ingresada en el Menu Materia: " + e.getMessage());
+                opcion = -1;
+                continue;
+            }
 
             switch (opcion) {
                 case 1:
@@ -53,7 +62,7 @@ public class MenuMateria {
                     logger.info("Volviendo...");
                     break;
                 default:
-                    logger.warning("Opción inválida");
+                    logger.warning("Opcion invalida");
                     break;
             }
         } while (opcion != 6);
@@ -71,6 +80,7 @@ public class MenuMateria {
 
             Carrera carrera = carreraDAO.obtenerPorId(idCarrera);
             if (carrera == null) {
+                 logger.warning("Intento de crear materia con carrera vacia: " + idCarrera);
                 System.out.println("Carrera no encontrada. No se puede crear la materia.");
                 return;
             }
@@ -81,8 +91,10 @@ public class MenuMateria {
             materia.setCarrera(carrera); // ASOCIAMOS LA CARRERA
 
             materiaDAO.insertar(materia);
+            logger.info("Materia creada: " + nombre + ", Anio: " + anio + ", Carrera ID: " + idCarrera);
             System.out.println("Materia creada correctamente.");
         } catch (Exception e) {
+            logger.severe("Error al crear materia: " + e.getMessage());
             System.out.println("Error al crear materia: " + e.getMessage());
         }
     }
@@ -91,12 +103,15 @@ public class MenuMateria {
         try {
             List<Materia> materias = materiaDAO.obtenerTodos();
             if (materias.isEmpty()) {
+                logger.warning("No hay materias registradas para mostrar.");
                 System.out.println("No hay materias registradas.");
             }
+            logger.info("Mostrando materias. Total: " + materias.size());
             for (Materia m : materias) {
                 System.out.println("ID: " + m.getId() + ", Nombre: " + m.getNombre() + ", Anio: " + m.getAnio());
             }
         } catch (Exception e) {
+            logger.severe("Error al mostrar materias: " + e.getMessage());
             System.out.println("Error al listar materias: " + e.getMessage());
         }
     }
@@ -122,6 +137,7 @@ public class MenuMateria {
             int id = Integer.parseInt(scanner.nextLine());
             Materia m = materiaDAO.obtenerPorId(id);
             if (m == null) {
+                logger.warning("Intento de actualizar materia no existente. ID: " + id);
                 System.out.println("Materia no encontrada.");
                 return;
             }
@@ -134,8 +150,10 @@ public class MenuMateria {
             m.setAnio(anio);
 
             materiaDAO.actualizar(m);
+            logger.info("Materia actualizada. ID: " + id + ", Nuevo nombre: " + nombre + ", Nuevo anio: " + anio);
             System.out.println("Materia actualizada correctamente.");
         } catch (Exception e) {
+            logger.severe("Error al actualizar materia: " + e.getMessage());
             System.out.println("Error al actualizar materia: " + e.getMessage());
         }
     }
@@ -145,8 +163,10 @@ public class MenuMateria {
             System.out.print("Ingrese ID de la materia a eliminar: ");
             int id = Integer.parseInt(scanner.nextLine());
             materiaDAO.eliminar(id);
+            logger.info("Materia eliminada. ID: " + id);
             System.out.println("Materia eliminada.");
         } catch (Exception e) {
+             logger.severe("Error al eliminar materia: " + e.getMessage());
             System.out.println("Error al eliminar materia: " + e.getMessage());
         }
     }

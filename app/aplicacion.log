@@ -1,0 +1,18 @@
+jun. 03, 2025 4:03:45 P. M. main.Principal main
+INFO: La aplicación inicio.
+jun. 03, 2025 4:05:40 P. M. main.Principal main
+INFO: La aplicación inicio.
+jun. 03, 2025 4:06:00 P. M. main.Principal main
+INFO: Usuario seleccionó opción: 1
+jun. 03, 2025 4:06:53 P. M. controlador.MenuCarrera mostrarMenu
+INFO: Usuario eligió opción en MenuCarrera: 2
+jun. 03, 2025 4:06:53 P. M. controlador.MenuCarrera mostrarCarreras
+INFO: Mostrando lista de carreras.
+jun. 03, 2025 4:23:31 P. M. main.Principal main
+INFO: La aplicación inicio.
+jun. 03, 2025 4:23:37 P. M. main.Principal main
+INFO: Usuario seleccionó opcion: 2
+jun. 03, 2025 4:23:39 P. M. controlador.MenuMateria mostrarMenu
+INFO: El Usuario eligió opción en MenuMateria: 1
+jun. 03, 2025 4:23:39 P. M. controlador.MenuMateria mostrarMenu
+INFO: El usuario eligio opción en el MenuMateria: 1
