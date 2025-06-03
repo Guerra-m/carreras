@@ -8,9 +8,9 @@ import model.Materia;
 
 import java.util.List;
 import java.util.Scanner;
-
+import java.util.logging.Logger;
 public class MenuMateria {
-
+    private static final Logger logger = Logger.getLogger(MenuMateria.class.getName());
     private final MateriaDAO materiaDAO = new MateriaDAOImpl();
     private final CarreraDAO carreraDAO;
     private final Scanner scanner;
@@ -50,10 +50,10 @@ public class MenuMateria {
                     eliminarMateria();
                     break;
                 case 6:
-                    System.out.println("Volviendo...");
+                    logger.info("Volviendo...");
                     break;
                 default:
-                    System.out.println("Opción inválida");
+                    logger.warning("Opción inválida");
                     break;
             }
         } while (opcion != 6);

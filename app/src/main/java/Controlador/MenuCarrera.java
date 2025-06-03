@@ -7,9 +7,9 @@ import model.Carrera;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import java.util.logging.Logger;
 public class MenuCarrera {
-
+    private static final Logger logger = Logger.getLogger(MenuCarrera.class.getName());
     private final CarreraDAO carreraDAO = new CarreraDAOImpl();
     private final Scanner scanner;
 
@@ -50,7 +50,7 @@ public class MenuCarrera {
                     System.out.println("Volviendo...");
                     break;
                 default:
-                    System.out.println("Opción invalida");
+                    logger.warning("Opción inválida.");
             }
         } while (opcion != 6);
     }

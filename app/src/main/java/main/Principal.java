@@ -7,14 +7,15 @@ import dao.CarreraDAOImpl;
 import dao.MateriaDAO;
 import dao.MateriaDAOImpl;
 import java.util.Scanner;
-
+import java.util.logging.Logger;
 public class Principal {
-
+    private static final Logger logger = Logger.getLogger(Principal.class.getName());
     private static final Scanner scanner = new Scanner(System.in);
     private static final CarreraDAO carreraDAO = new CarreraDAOImpl();
     private static final MateriaDAO materiaDAO = new MateriaDAOImpl();
     
     public static void main(String[] args) {
+        logger.info("La aplicación inicio.");
         MenuCarrera menuCarrera = new MenuCarrera(scanner);
         MenuMateria menuMateria = new MenuMateria(scanner, carreraDAO);
 
